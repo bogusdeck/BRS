@@ -15,7 +15,7 @@ class UserLogoutForm(forms.Form):
 class UserSignupForm(forms.Form):
     def clean(self):
         cleaned_data = super().clean()
-        email_to_check = clean_data.get('email')
+        email_to_check = cleaned_data.get('email')
         if CustomUser.objects.filter(email=email_to_check).exists():
             raise ValidationError("Email already exists")
         

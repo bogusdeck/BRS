@@ -1,13 +1,86 @@
-{% extends "base.html" %}
-{% block title %}Welcome{% endblock %}
-{% if user.is_authenticated %}
-{% block name%} <span class="test-white"> {{user.fname}} {{user.lname}} </span> {%endblock name%}
-{% endif %}
-
+{% extends "base.html" %} 
+{% block title %}Welcome{% endblock %} 
 {% block content %}
 
-<div class="flex items-center justify-center min-h-screen">
-    <h1 class="text-white text-5xl text-center m-5"> WELCOME to our BOOK RECOMMENDATION PLATFORM </h1>
-</div>
+<section class="bg-blue-500 text-white h-screen flex flex-col justify-center items-center text-center">
+    <h1 class="text-4xl font-bold mb-4">Welcome to BRS</h1>
+    <p class="text-lg mb-8">Your ultimate platform for finding and recommending books. Discover new reads and explore our API for book-related services.</p>
+    <a href="#find-books" class="bg-white text-blue-500 px-6 py-3 rounded-lg text-lg font-semibold">Get Started</a>
+</section>
+
+<!-- Find Books Section -->
+<section id="find-books" class="py-16 bg-white">
+    <div class="container mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-4">Find Books</h2>
+        <p class="text-lg mb-8">Search our extensive catalog to find your next great read. Use our advanced search features to narrow down your options.</p>
+        <a href="#" class="bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-semibold">Search Now</a>
+    </div>
+</section>
+
+<!-- Recommend Books Section -->
+<section id="recommend-books" class="py-16 bg-gray-200">
+    <div class="container mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-4">Recommend Books</h2>
+        <p class="text-lg mb-8">Share your favorite books with others and get personalized recommendations based on your preferences.</p>
+        <a href="#" class="bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-semibold">Get Recommendations</a>
+    </div>
+</section>
+
+<!-- User Reviews Section -->
+<section id="reviews" class="py-16 bg-gray-100 relative">
+    <div class="container mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-8">User Reviews</h2>
+        <!-- Swiper -->
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide p-6 bg-white rounded-lg shadow-md">
+                    <p class="text-lg font-semibold mb-4">"BRS helped me find the perfect book for my book club. The recommendations were spot on!"</p>
+                    <p class="text-gray-600">- Jane Doe</p>
+                </div>
+                <div class="swiper-slide p-6 bg-white rounded-lg shadow-md">
+                    <p class="text-lg font-semibold mb-4">"The API is fantastic for integrating book search features into my app. Highly recommend!"</p>
+                    <p class="text-gray-600">- John Smith</p>
+                </div>
+                <div class="swiper-slide p-6 bg-white rounded-lg shadow-md">
+                    <p class="text-lg font-semibold mb-4">"Great platform for book lovers. The user experience is top-notch and the recommendations are always relevant."</p>
+                    <p class="text-gray-600">- Emily Johnson</p>
+                </div>
+                <div class="swiper-slide p-6 bg-white rounded-lg shadow-md">
+                    <p class="text-lg font-semibold mb-4">"I love the user-friendly interface and the variety of books available. It's my go-to for book recommendations."</p>
+                    <p class="text-gray-600">- Michael Brown</p>
+                </div>
+                <div class="swiper-slide p-6 bg-white rounded-lg shadow-md">
+                    <p class="text-lg font-semibold mb-4">"The book search feature is incredibly accurate. I found several great reads thanks to BRS!"</p>
+                    <p class="text-gray-600">- Sarah Lee</p>
+                </div>
+                <div class="swiper-slide p-6 bg-white rounded-lg shadow-md">
+                    <p class="text-lg font-semibold mb-4">"BRS makes it easy to discover new books and share recommendations with friends. A fantastic resource!"</p>
+                    <p class="text-gray-600">- Daniel Wilson</p>
+                </div>
+                <div class="swiper-slide p-6 bg-white rounded-lg shadow-md">
+                    <p class="text-lg font-semibold mb-4">"The integration with my app was seamless, and the book recommendations have been spot on. Great work!"</p>
+                    <p class="text-gray-600">- Olivia Martinez</p>
+                </div>
+                <div class="swiper-slide p-6 bg-white rounded-lg shadow-md">
+                    <p class="text-lg font-semibold mb-4">"I've found so many new favorites thanks to BRS. The recommendations are personalized and relevant."</p>
+                    <p class="text-gray-600">- James Taylor</p>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+
+        </div>
+    </div>
+</section>
+
+<!-- API Section -->
+<section id="api" class="py-16 bg-white">
+    <div class="container mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-4">Our API</h2>
+        <p class="text-lg mb-8">Integrate with our API to find books, add new books, and more. Explore the possibilities with our comprehensive API documentation.</p>
+        <a href="#" class="bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-semibold">Learn More</a>
+    </div>
+</section>
 
 {% endblock %}

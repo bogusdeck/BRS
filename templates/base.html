@@ -1,16 +1,20 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
-    {% load static %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <link rel="icon" href="{% static 'bookfa.png' %}" type="image/x-icon" />
     <title>{% block title %}{% endblock title %}</title>
 </head>
-<body class="bg-black">
-    <nav class="bg-white text-black  text-center font-semibold fixed top-0 w-full z-10 shadow-md">
+
+<body class="bg-black flex flex-col min-h-screen">
+    <nav class="navbar bg-white text-black text-center font-semibold shadow-md">
         <div class="container mx-auto px-4 py-2 flex items-center justify-between">
             <div class="flex items-center">
                 <a href="{% if user.is_authenticated %}{% url 'home' %}{% else %}{% url 'welcome' %}{% endif %}" class="flex items-center space-x-2">
@@ -45,6 +49,19 @@
         </li>
         {% endfor %}
     </ul>
+    {% endif %}
+
+    <div class="content flex-grow">
+        {% block content %}
+        {% endblock content %}
+    </div>
+
+    <footer class="footer">
+        <div class="container mx-auto">
+            <p>&copy; 2024 BRS. All rights reserved.</p>
+        </div>
+    </footer>
+
     <script>
         // Automatically hide messages after 10 seconds (10000 milliseconds)
         setTimeout(function () {
@@ -55,9 +72,30 @@
                 setTimeout(() => message.remove(), 1000); // Remove the element after fading out
             });
         }, 5000);
-    </script>
-    {% endif %}
 
-    {% block content %}{% endblock content %}
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                },
+                768: {
+                    slidesPerView: 3,
+                },
+                1024: {
+                    slidesPerView: 4,
+                },
+            },
+        });
+    </script>
 </body>
 </html>
