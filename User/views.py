@@ -13,6 +13,11 @@ from rest_framework.views import APIView
 from uuid import uuid4
 from .forms import UserLoginForm, UserLogoutForm, UserSignupForm
 from django.contrib import messages
+from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+
+
+
 
 # SignUp API
 class SignUpAPIView(CreateAPIView):
@@ -149,7 +154,10 @@ def SignUpGUIView(request):
 
     return render(request, "signup.html", {"form":form})
 
+@login_required
 def LogoutGUIView(request):
-    if request.method =="POST":
+    if request.method == 'POST':
         logout(request)
-        return redirect('signin')
+        messages.success(request, "You have been logged out successfully.")
+        return redirect('signin')  
+
