@@ -37,7 +37,6 @@ html, body {
     line-height: 44px;
     font-size: 10px;
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .swiper-button-next {
@@ -46,4 +45,35 @@ html, body {
 
 .swiper-button-prev {
     left: 5px;
+}
+
+
+.category-button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    display: inline-block;
+}
+
+.category-button.selected {
+    background-color: #4caf50;
+    color: white;
+}
+
+.preferences-bar {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.preferences-bar span {
+    margin-right: 5px;
+    padding: 5px;
+    background-color: #d1d1d1;
+    border-radius: 3px;
 }

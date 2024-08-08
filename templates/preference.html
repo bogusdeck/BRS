@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Select Preferences{% endblock %}
+
+{% block content %}
+
+<div class="flex flex-col items-center justify-center mt-20 mx-11">
+    <h1 class="text-3xl font-semibold mb-6 text-center text-white">Select Your Preferred Categories</h1>
+    <form method="post" class="bg-white p-6 rounded-lg shadow-lg">
+        {% csrf_token %}
+        
+        <!-- Preferences Bar -->
+        <div class="flex flex-wrap gap-2 mb-4 p-2 bg-gray-100 border-2 h-auto border-black" id="preferences-bar">
+            {% for category in selected_categories %}
+                <span class="bg-blue-500 text-white px-3 py-1 rounded-full">{{ category }}</span>
+            {% endfor %}
+        </div>
+        
+        <!-- Category Buttons -->
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4">
+            {% for category in categories %}
+                <button 
+                    type="button" 
+                    class="category-button bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg shadow-md transition duration-200 ease-in-out"
+                    data-category="{{ category }}"
+                >
+                    {{ category }}
+                </button>
+            {% endfor %}
+        </div>
+        
+        <!-- Hidden Input & Save Button -->
+        <input type="hidden" name="categories" id="selected-categories" value="{{ selected_categories|join:',' }}">
+        <div class="text-center">
+            <button type="submit" class="bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-600 transition duration-300 ease-in-out">
+                Save Preferences
+            </button>
+        </div>
+    </form>
+
+    <!-- Button to Clear All Preferences -->
+    <form method="post" action="{% url 'clear_preference' %}" class="mt-4">
+        {% csrf_token %}
+        <button type="submit" class="bg-red-500 text-white py-2 px-6 rounded-lg hover:bg-red-600 transition duration-300 ease-in-out">
+            Clear All Preferences
+        </button>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const buttons = document.querySelectorAll('.category-button');
+        const preferencesBar = document.getElementById('preferences-bar');
+        const selectedCategoriesInput = document.getElementById('selected-categories');
+    
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                const category = this.dataset.category;
+                const isSelected = this.classList.contains('selected');
+                
+                if (isSelected) {
+                    this.classList.remove('selected');
+                    const spanToRemove = Array.from(preferencesBar.querySelectorAll('span'))
+                                              .find(span => span.textContent === category);
+                    if (spanToRemove) {
+                        spanToRemove.remove();
+                    }
+                } else {
+                    this.classList.add('selected');
+                    const span = document.createElement('span');
+                    span.textContent = category;
+                    span.classList.add('bg-blue-500', 'text-white', 'px-3', 'py-1', 'rounded-full', 'mr-2', 'mb-2');
+                    preferencesBar.appendChild(span);
+                }
+                updateSelectedCategoriesInput();
+            });
+        });
+    
+        function updateSelectedCategoriesInput() {
+            const selectedCategories = Array.from(preferencesBar.querySelectorAll('span'))
+                                            .map(span => span.textContent);
+            selectedCategoriesInput.value = selectedCategories.join(',');
+        }
+    });
+</script>
+
+{% endblock %}
