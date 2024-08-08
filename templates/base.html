@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+
+    <title>{% block title %}{% endblock title %}</title>
+  </head>
+  <body class="bg-black">
+    <nav
+      class="bg-white bg-opacity-50 text-black text-xl p-3 text-center mb-1 font-semibold absolute top-0 w-full"
+    >
+      <div class="grid grid-cols-3">
+        <div class="col-span-1 flex items-start justify-start text-3xl">
+          BRS
+        </div>
+        <div class="col-span-1">
+          <p>{% block name%}{%endblock name%}</p>
+        </div>
+        <div class="col-span-1 flex items-end justify-end gap-3">
+          <a
+            href="{% url 'signin' %}"
+            class="text-white text-md px-2 py-1 bg-orange-500 rounded-xl"
+            >Login</a
+          >
+          <a
+            href="{% url 'signup' %}"
+            class="text-white text-md px-2 py-1 bg-orange-500 rounded-xl"
+            >Signup</a
+          >
+        </div>
+      </div>
+    </nav>
+    {% if messages %}
+    <ul class="messages ">
+      {% for message in messages %}
+      <div class="flex items-center justify-center ">
+        <li class="{{ message.tags }} absolute top-16 text-3xl bg-red-400 w-fit rounded-md px-2 py-1 border-4 border-red-700">{{ message }}</li>
+      </div>
+      {% endfor %}
+    </ul>
+    {% endif %} 
+    {%block content%}{%endblock content%}
+  </body>
+</html>
