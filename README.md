@@ -2,6 +2,10 @@
   <img src="https://github.com/user-attachments/assets/998a1d2c-a002-4cbd-bcc9-ec9033ff7df2" />
 </p>
 
+<p align="center">
+  https://brs.up.railway.app/
+</p>
+
 # Book Recommendation System (BRS)
 
 ## Overview
