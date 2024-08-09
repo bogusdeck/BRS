@@ -4,6 +4,7 @@ from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from User.models import Category
 
@@ -131,16 +132,18 @@ def addBook(request):
     return render(request, "addBook.html")
 
 
+
 def showcase(request):
     query = request.GET.get('query', '')
     genre = request.GET.get('genre', '')
     author = request.GET.get('author', '')
     rating = request.GET.get('rating', '')
     sort = request.GET.get('sort', 'relevance')
-    
-    if author:
+    page_number = request.GET.get('page', 1)
+
+    if author: 
         query = author
-    
+
     filters = {
         'q': query,
         'genre': genre,
@@ -150,9 +153,9 @@ def showcase(request):
     }
     
     api_key = settings.GOOGLE_BOOKS_API_KEY
-    books = []
-    default_image = "static/default_for_cover.jpg"
+    default_image = "/static/default_for_cover.jpg"
     
+    # Construct search parameters
     search_params = []
     if query:
         search_params.append(f"intitle:{query}")
@@ -165,19 +168,42 @@ def showcase(request):
 
     search_query = '+'.join(search_params)
     
+    books = []
+    total_items = 0
+    
     if search_query:
         try:
-            response = fetch_books(search_query, api_key, 10)
-            books = process_books(response)
-            
+            # Fetch books in chunks and manage pagination
+            start_index = 0
+            max_results = 10
+            fetched_books = []
+            while True:
+                response = fetch_books(search_query, api_key, max_results, start_index)
+                items = response.get('items', [])
+                total_items = response.get('totalItems', 0)
+                fetched_books.extend(items)
+                if len(items) < max_results:
+                    break
+                start_index += max_results
+
+            # Sort books
             if sort == 'title_asc':
-                books.sort(key=lambda x: x['volumeInfo']['title'])
+                fetched_books.sort(key=lambda x: x.get('volumeInfo', {}).get('title', '').lower())
             elif sort == 'title_desc':
-                books.sort(key=lambda x: x['volumeInfo']['title'], reverse=True)
+                fetched_books.sort(key=lambda x: x.get('volumeInfo', {}).get('title', '').lower(), reverse=True)
             
+            # Paginate the results
+            paginator = Paginator(fetched_books, per_page=max_results)
+            try:
+                books = paginator.page(page_number)
+            except PageNotAnInteger:
+                books = paginator.page(1)
+            except EmptyPage:
+                books = paginator.page(paginator.num_pages)
+
         except Exception as e:
             messages.error(request, f"An error occurred: {e}")
-    
+
     context = {
         'books': books,
         'query': query,
@@ -186,6 +212,7 @@ def showcase(request):
         'selected_author': author,
         'selected_rating': rating,
         'selected_sort': sort,
+        'total_items': total_items
     }
     
     return render(request, 'showcase.html', context)

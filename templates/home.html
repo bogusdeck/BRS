@@ -1,7 +1,6 @@
 {% extends "base.html" %} {% load static %} {% block title %}Home{% endblock %}
 {% block content %}
 <div>
-  <!-- Search Bar Section -->
   <section class="mb-12">
     <div
       class="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-cyan-100 via-pink-200 to-yellow-200 rounded-lg shadow-lg"
@@ -44,7 +43,6 @@
     </div>
   </section>
 
-  <!-- Trending Books Carousel -->
   <h2 class="text-3xl font-bold text-teal-600 mb-6 text-center">
     Trending Books
   </h2>
@@ -78,13 +76,11 @@
       {% endfor %}
     </div>
 
-    <!-- Swiper Pagination and Navigation -->
     <div class="swiper-pagination"></div>
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
   </div>
 
-  <!-- All-Time Favorites Section -->
   <h2 class="text-3xl font-bold text-teal-600 mb-6 text-center">
     All-Time Favorites
   </h2>
@@ -119,7 +115,6 @@
     {% endfor %}
   </div>
 
-  <!-- Recommended for You Section -->
   <h2
     class="text-3xl font-bold text-teal-600 mb-6 text-center flex items-center"
   >
@@ -191,7 +186,6 @@
   </div>
   {% endif %}
 
-  <!-- Books Recommended by Other Users Section -->
   <h2 class="text-3xl font-bold text-teal-600 mb-6 text-center">
     Recommended by Other Users
   </h2>

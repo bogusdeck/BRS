@@ -3,7 +3,6 @@
 
 {% block content %}
 <div class="flex flex-col md:flex-row mt-20 mx-4 md:mx-11">
-    <!-- Sidebar -->
     <div class="w-full h-fit md:w-1/4 lg:w-1/5 bg-gray-800 text-white p-4 rounded-lg shadow-lg mb-4 md:mb-0">
         <h2 class="text-xl font-semibold mb-4">Filters</h2>
         <form method="get" action="{% url 'showcase' %}">
@@ -15,7 +14,19 @@
                     <option value="">All</option>
                     <option value="fiction" {% if selected_genre == "fiction" %}selected{% endif %}>Fiction</option>
                     <option value="non-fiction" {% if selected_genre == "non-fiction" %}selected{% endif %}>Non-fiction</option>
-                    <!-- Add more genres as needed -->
+                    <option value="science fiction" {% if selected_genre == "science fiction" %}selected{% endif %}>Science Fiction</option>
+                    <option value="fantasy" {% if selected_genre == "fantasy" %}selected{% endif %}>Fantasy</option>
+                    <option value="mystery" {% if selected_genre == "mystery" %}selected{% endif %}>Mystery</option>
+                    <option value="thriller" {% if selected_genre == "thriller" %}selected{% endif %}>Thriller</option>
+                    <option value="romance" {% if selected_genre == "romance" %}selected{% endif %}>Romance</option>
+                    <option value="historical" {% if selected_genre == "historical" %}selected{% endif %}>Historical</option>
+                    <option value="biography" {% if selected_genre == "biography" %}selected{% endif %}>Biography</option>
+                    <option value="self-help" {% if selected_genre == "self-help" %}selected{% endif %}>Self-Help</option>
+                    <option value="young adult" {% if selected_genre == "young adult" %}selected{% endif %}>Young Adult</option>
+                    <option value="children" {% if selected_genre == "children" %}selected{% endif %}>Children's</option>
+                    <option value="horror" {% if selected_genre == "horror" %}selected{% endif %}>Horror</option>
+                    <option value="classic" {% if selected_genre == "classic" %}selected{% endif %}>Classic</option>
+                    <option value="poetry" {% if selected_genre == "poetry" %}selected{% endif %}>Poetry</option>
                 </select>
             </div>
             <div class="mb-4">
@@ -25,6 +36,7 @@
             <div class="mb-4">
                 <label for="rating" class="block mb-2">Minimum Rating</label>
                 <select id="rating" name="rating" class="w-full bg-gray-700 text-white py-2 px-3 rounded-lg">
+                    <!-- Options omitted for brevity -->
                     <option value="">Any</option>
                     <option value="5" {% if selected_rating == "5" %}selected{% endif %}>5★</option>
                     <option value="4" {% if selected_rating == "4" %}selected{% endif %}>4★ & above</option>
@@ -37,12 +49,12 @@
             <div class="mb-4">
                 <label for="sort" class="block mb-2">Sort</label>
                 <select id="sort" name="sort" class="w-full bg-gray-700 text-white py-2 px-3 rounded-lg">
+                    <!-- Options omitted for brevity -->
                     <option value="relevance" {% if selected_sort == "relevance" %}selected{% endif %}>Relevance</option>
                     <option value="title_asc" {% if selected_sort == "title_asc" %}selected{% endif %}>Title (Ascending)</option>
                     <option value="title_desc" {% if selected_sort == "title_desc" %}selected{% endif %}>Title (Descending)</option>
                 </select>
             </div>
-            
             
             <button type="submit" class="w-full bg-teal-500 hover:bg-teal-600 text-white py-2 px-3 rounded-lg font-semibold">Apply Filters</button>
         </form>
@@ -52,7 +64,7 @@
         <h1 class="text-3xl font-semibold mb-6 text-center text-white">Search Results for "{{ query }}"</h1>
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {% for book in books %}
-                <div class="relative bg-white w-full p-3 rounded-lg shadow-lg flex flex-col justify-between" style="">
+                <div class="relative bg-white w-full p-3 rounded-lg shadow-lg flex flex-col justify-between">
                     <div class="relative pb-[177.78%] overflow-hidden rounded-lg mb-2">
                         <img src="{{ book.volumeInfo.imageLinks.thumbnail|default:default_image }}" alt="{{ book.volumeInfo.title }}" class="absolute top-0 left-0 w-full h-full object-cover">
                     </div>
@@ -75,6 +87,26 @@
                 </div>
             {% endfor %}
         </div>
+        <!-- Pagination controls -->
+        <div class="flex justify-center mt-6">
+            <div class="flex gap-2">
+                {% if books.has_previous %}
+                    <a href="?{% if request.GET.query %}query={{ request.GET.query }}&{% endif %}page={{ books.previous_page_number }}&genre={{ selected_genre }}&author={{ selected_author }}&rating={{ selected_rating }}&sort={{ selected_sort }}" class="bg-teal-500 hover:bg-teal-600 text-white py-2 px-4 rounded-lg">Previous</a>
+                {% endif %}
+                {% for num in books.paginator.page_range %}
+                    {% if books.number == num %}
+                        <span class="bg-teal-500 text-white py-2 px-4 rounded-lg">{{ num }}</span>
+                    {% else %}
+                        <a href="?{% if request.GET.query %}query={{ request.GET.query }}&{% endif %}page={{ num }}&genre={{ selected_genre }}&author={{ selected_author }}&rating={{ selected_rating }}&sort={{ selected_sort }}" class="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-lg">{{ num }}</a>
+                    {% endif %}
+                {% endfor %}
+                {% if books.has_next %}
+                    <a href="?{% if request.GET.query %}query={{ request.GET.query }}&{% endif %}page={{ books.next_page_number }}&genre={{ selected_genre }}&author={{ selected_author }}&rating={{ selected_rating }}&sort={{ selected_sort }}" class="bg-teal-500 hover:bg-teal-600 text-white py-2 px-4 rounded-lg">Next</a>
+                {% endif %}
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
+
+
