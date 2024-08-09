@@ -12,12 +12,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-4k76gryl_n!hweuv29_flo#zx)wagz93x!!g%vx!fm^6w9xy0l'
+SECRET_KEY = os.environ.get('MY_SECRET_KEY')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.railway.app', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -117,6 +118,8 @@ LOGIN_URL = '/user/signin/'
 
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",

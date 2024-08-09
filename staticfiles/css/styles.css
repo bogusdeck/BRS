@@ -1,0 +1,106 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    overflow-x: hidden;
+    flex-direction: column;
+}
+.content {
+    flex: 1;
+}
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+}
+.footer {
+    background-color: #01cccd; 
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+
+.swiper-container {
+    position: relative;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    position: absolute;
+    top: 50%;
+    width: 23px;
+    height: 40px;
+    margin-top: -22px; 
+    color: #000; 
+    text-align: center;
+    line-height: 44px;
+    font-size: 10px;
+    cursor: pointer;
+}
+
+.swiper-button-next {
+    right: 5px;
+}
+
+.swiper-button-prev {
+    left: 5px;
+}
+
+
+.category-button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    display: inline-block;
+}
+
+.category-button.selected {
+    background-color: #4caf50;
+    color: white;
+}
+
+.preferences-bar {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.preferences-bar span {
+    margin-right: 5px;
+    padding: 5px;
+    background-color: #d1d1d1;
+    border-radius: 3px;
+}
+
+
+@media (max-width: 767px) {
+    .md\:w-1\/4 {
+        width: 100%;
+    }
+}
+
+.grid > div {
+    margin-bottom: 1rem; 
+}
+
+.truncate-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.truncate-author {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#gradient-section {
+    transition: background-image 2s ease-in-out;
+  }
