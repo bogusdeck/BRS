@@ -20,6 +20,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['brs.up.railway.app', 'localhost', '127.0.0.1', 'brs-9z1i.onrender.com', '']
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://brs.up.railway.app',
+]
 
 # Application definition
 
