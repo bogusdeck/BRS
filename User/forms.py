@@ -1,6 +1,5 @@
 from django import forms
 from django.core.exceptions import ValidationError
-# from api.models import User
 from .models import CustomUser, Category
 from django.contrib.auth.hashers import make_password, check_password
 

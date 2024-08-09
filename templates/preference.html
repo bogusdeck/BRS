@@ -8,14 +8,12 @@
     <form method="post" class="bg-white p-6 rounded-lg shadow-lg">
         {% csrf_token %}
         
-        <!-- Preferences Bar -->
         <div class="flex flex-wrap gap-2 mb-4 p-2 bg-gray-100 border-2 h-auto border-black" id="preferences-bar">
             {% for category in selected_categories %}
                 <span class="bg-blue-500 text-white px-3 py-1 rounded-full">{{ category }}</span>
             {% endfor %}
         </div>
         
-        <!-- Category Buttons -->
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4">
             {% for category in categories %}
                 <button 
@@ -28,7 +26,6 @@
             {% endfor %}
         </div>
         
-        <!-- Hidden Input & Save Button -->
         <input type="hidden" name="categories" id="selected-categories" value="{{ selected_categories|join:',' }}">
         <div class="text-center">
             <button type="submit" class="bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-600 transition duration-300 ease-in-out">
@@ -37,7 +34,6 @@
         </div>
     </form>
 
-    <!-- Button to Clear All Preferences -->
     <form method="post" action="{% url 'clear_preference' %}" class="mt-4">
         {% csrf_token %}
         <button type="submit" class="bg-red-500 text-white py-2 px-6 rounded-lg hover:bg-red-600 transition duration-300 ease-in-out">

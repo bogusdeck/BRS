@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+<div class="flex flex-col md:flex-row mt-20 mx-4 md:mx-11">
+    <!-- Sidebar -->
+    <div class="w-full h-fit md:w-1/4 lg:w-1/5 bg-gray-800 text-white p-4 rounded-lg shadow-lg mb-4 md:mb-0">
+        <h2 class="text-xl font-semibold mb-4">Filters</h2>
+        <form method="get" action="{% url 'showcase' %}">
+            <input type="hidden" name="query" value="{{ query }}">
+            
+            <div class="mb-4">
+                <label for="genre" class="block mb-2">Genre</label>
+                <select id="genre" name="genre" class="w-full bg-gray-700 text-white py-2 px-3 rounded-lg">
+                    <option value="">All</option>
+                    <option value="fiction" {% if selected_genre == "fiction" %}selected{% endif %}>Fiction</option>
+                    <option value="non-fiction" {% if selected_genre == "non-fiction" %}selected{% endif %}>Non-fiction</option>
+                    <!-- Add more genres as needed -->
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="author" class="block mb-2">Author</label>
+                <input type="text" id="author" name="author" value="{{ selected_author }}" class="w-full bg-gray-700 text-white py-2 px-3 rounded-lg" placeholder="Author name">
+            </div>
+            <div class="mb-4">
+                <label for="rating" class="block mb-2">Minimum Rating</label>
+                <select id="rating" name="rating" class="w-full bg-gray-700 text-white py-2 px-3 rounded-lg">
+                    <option value="">Any</option>
+                    <option value="5" {% if selected_rating == "5" %}selected{% endif %}>5★</option>
+                    <option value="4" {% if selected_rating == "4" %}selected{% endif %}>4★ & above</option>
+                    <option value="3" {% if selected_rating == "3" %}selected{% endif %}>3★ & above</option>
+                    <option value="2" {% if selected_rating == "2" %}selected{% endif %}>2★ & above</option>
+                    <option value="1" {% if selected_rating == "1" %}selected{% endif %}>1★ & above</option>
+                </select>
+            </div>
+            <h2 class="text-xl font-semibold mb-4">Sort By</h2>
+            <div class="mb-4">
+                <label for="sort" class="block mb-2">Sort</label>
+                <select id="sort" name="sort" class="w-full bg-gray-700 text-white py-2 px-3 rounded-lg">
+                    <option value="relevance" {% if selected_sort == "relevance" %}selected{% endif %}>Relevance</option>
+                    <option value="title_asc" {% if selected_sort == "title_asc" %}selected{% endif %}>Title (Ascending)</option>
+                    <option value="title_desc" {% if selected_sort == "title_desc" %}selected{% endif %}>Title (Descending)</option>
+                </select>
+            </div>
+            
+            
+            <button type="submit" class="w-full bg-teal-500 hover:bg-teal-600 text-white py-2 px-3 rounded-lg font-semibold">Apply Filters</button>
+        </form>
+    </div>
+
+    <div class="flex-1 ml-5 mb-3">
+        <h1 class="text-3xl font-semibold mb-6 text-center text-white">Search Results for "{{ query }}"</h1>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {% for book in books %}
+                <div class="relative bg-white w-full p-3 rounded-lg shadow-lg flex flex-col justify-between" style="">
+                    <div class="relative pb-[177.78%] overflow-hidden rounded-lg mb-2">
+                        <img src="{{ book.volumeInfo.imageLinks.thumbnail|default:default_image }}" alt="{{ book.volumeInfo.title }}" class="absolute top-0 left-0 w-full h-full object-cover">
+                    </div>
+                    <h2 class="text-lg font-semibold truncate-title" title="{{ book.volumeInfo.title }}">
+                        {{ book.volumeInfo.title|slice:":30" }}{% if book.volumeInfo.title|length > 30 %}...{% endif %}
+                    </h2>
+                    <p class="text-gray-700 text-sm truncate-author" title="{{ book.volumeInfo.authors|join:', ' }}">
+                        {{ book.volumeInfo.authors|join:', '|slice:":20" }}{% if book.volumeInfo.authors|length > 20 %}...{% endif %}
+                    </p>
+                    <a href="{{ book.volumeInfo.previewLink }}" target="_blank" class="text-blue-500 hover:underline text-sm">Preview</a>
+                    {% if book.volumeInfo.averageRating %}
+                        <div class="absolute bottom-0 right-0 bg-teal-500 text-white text-xs font-bold px-2 py-1 rounded-tl-lg rounded-br-lg">
+                            <span class="text-xs font-semibold">{{ book.volumeInfo.averageRating }}</span> ★
+                        </div>
+                    {% else %}
+                        <div class="absolute bottom-0 right-0 bg-gray-400 text-white text-xs font-bold px-2 py-1 rounded-br-lg rounded-tl-lg">
+                            <span class="text-xs font-semibold">No Rating</span>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
