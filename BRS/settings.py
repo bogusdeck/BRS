@@ -18,7 +18,7 @@ SECRET_KEY= "237649b3a02be7c9107bc45cdacca6e962dae6dd"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.railway.app', 'localhost', '127.0.0.1', 'brs-9z1i.onrender.com', '.onrender.com']
+ALLOWED_HOSTS = ['brs.up.railway.app', 'localhost', '127.0.0.1', 'brs-9z1i.onrender.com', '']
 
 
 # Application definition
