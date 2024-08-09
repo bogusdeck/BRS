@@ -1,22 +1,20 @@
 {% extends "base.html" %} {% block title %}Welcome{% endblock %} 
 {% block content %}
 
-<section
-  class="bg-blue-500 text-white h-screen flex flex-col justify-center items-center text-center"
->
+<section id="gradient-section" class="bg-gradient-to-r from-teal-400 via-blue-500 to-purple-600 text-white h-screen flex flex-col justify-center items-center text-center">
   <h1 class="text-4xl font-bold mb-4">Welcome to BRS</h1>
   <p class="text-lg mb-8">
     Your ultimate platform for finding and recommending books. Discover new
     reads and explore our API for book-related services.
   </p>
   <a
-    href="#find-books"
-    class="bg-white text-blue-500 px-6 py-3 rounded-lg text-lg font-semibold"
+    href="{% if user.is_authenticated %}{% url 'home' %}{% else %}{% url 'signin' %}{% endif %}"
+    class="bg-[#01cccd] text-black px-6 py-3 rounded-lg text-lg font-semibold transform transition duration-300 hover:scale-105"
     >Get Started</a
   >
 </section>
 
-<!-- Find Books Section -->
+
 <section id="find-books" class="py-16 bg-white">
   <div class="container mx-auto text-center">
     <h2 class="text-3xl font-bold mb-4">Find Books</h2>
@@ -25,34 +23,31 @@
       advanced search features to narrow down your options.
     </p>
     <a
-      href="#"
-      class="bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-semibold"
+      href="{% if user.is_authenticated %}{% url 'home' %}{% else %}{% url 'signin' %}{% endif %}"
+      class="bg-[#01cccd] text-black px-6 py-3 rounded-lg text-lg font-semibold transform transition duration-300 hover:scale-105"
       >Search Now</a
     >
   </div>
 </section>
 
-<!-- Recommend Books Section -->
-<section id="recommend-books" class="py-16 bg-gray-200">
+<section id="recommend-books" class="py-16 bg-black">
   <div class="container mx-auto text-center">
-    <h2 class="text-3xl font-bold mb-4">Recommend Books</h2>
-    <p class="text-lg mb-8">
+    <h2 class="text-3xl font-bold text-[#01cccd] mb-4">Recommend Books</h2>
+    <p class="text-lg mb-8 text-[#01cccd]">
       Share your favorite books with others and get personalized recommendations
       based on your preferences.
     </p>
     <a
-      href="#"
-      class="bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-semibold"
+      href="{% if user.is_authenticated %}{% url 'home' %}{% else %}{% url 'signin' %}{% endif %}"
+      class="bg-[#01cccd] text-black px-6 py-3 rounded-lg text-lg font-semibold transform transition duration-300 hover:scale-105"
       >Get Recommendations</a
     >
   </div>
 </section>
 
-<!-- User Reviews Section -->
-<section id="reviews" class="py-16 bg-gray-100 relative">
+<section id="reviews" class="py-16 bg-[#01cccd] relative">
   <div class="container mx-auto text-center">
     <h2 class="text-3xl font-bold mb-8">User Reviews</h2>
-    <!-- Swiper -->
     <div class="swiper-container">
       <div class="swiper-wrapper">
         <div class="swiper-slide p-6 bg-white rounded-lg shadow-md">
@@ -119,8 +114,7 @@
   </div>
 </section>
 
-<!-- API Section -->
-<section id="api" class="py-16 bg-white">
+<section id="api" class="py-16 bg-gradient-to-br from-cyan-100 via-pink-200 to-yellow-200">
   <div class="container mx-auto text-center">
     <h2 class="text-3xl font-bold mb-4">Our API</h2>
     <p class="text-lg mb-8">
@@ -128,8 +122,8 @@
       possibilities with our comprehensive API documentation.
     </p>
     <a
-      href="#"
-      class="bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-semibold"
+      href="https://boguscode.notion.site/BRS-930bba0cd24d41569a4f3e714ec559b0?pvs=25"
+      class="bg-[#01cccd] text-black px-6 py-3 rounded-lg text-lg font-semibold transform transition duration-300 hover:scale-105"
       >Learn More</a
     >
   </div>
@@ -159,6 +153,27 @@
       },
     },
   });
+
+  const section = document.getElementById('gradient-section');
+  
+  const gradients = [
+    'bg-gradient-to-r from-teal-400 via-blue-500 to-purple-600',
+    'bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500',
+    'bg-gradient-to-r from-green-400 via-blue-400 to-purple-400',
+    'bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'
+  ];
+  
+  let currentIndex = 0;
+  
+  function changeGradient() {
+    section.classList.remove(...gradients.map(g => g.split(' ').join('-')));
+    
+    section.classList.add(gradients[currentIndex]);
+    
+    currentIndex = (currentIndex + 1) % gradients.length;
+  }
+  
+  setInterval(changeGradient, 5000);
 </script>
 
 {% endblock %}

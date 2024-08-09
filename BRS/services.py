@@ -17,5 +17,5 @@ def fetch_books(query, api_key, max_results, start_index=0):
 
 def fetch_book_for_preference(preference, api_key):
     query = '+'.join(preference)
-    response = fetch_books(query, api_key, 10)
+    response = fetch_books(query, api_key, 12)
     return response.get('items', [])

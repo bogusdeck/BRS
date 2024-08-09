@@ -15,7 +15,7 @@ html, body {
     z-index: 10;
 }
 .footer {
-    background-color: #1e3a8a; /* Adjust the color as needed */
+    background-color: #01cccd; 
     color: white;
     text-align: center;
     padding: 1rem;
@@ -101,3 +101,6 @@ html, body {
     white-space: nowrap;
 }
 
+#gradient-section {
+    transition: background-image 2s ease-in-out;
+  }

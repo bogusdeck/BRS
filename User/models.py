@@ -23,6 +23,7 @@ class CustomUser(AbstractBaseUser):
     password = models.CharField(max_length=255)
     token = models.CharField(max_length=36, blank=True, null=True)
     preference = models.JSONField(default=list)
+    user_book = models.JSONField(default=list) 
 
     objects = CustomUserManager()
 
@@ -32,9 +33,15 @@ class CustomUser(AbstractBaseUser):
     def __str__(self):
         return self.email
 
-class Category(models.Model):
-    name = models.CharField(max_length=100)
+class Books(models.Model):
+    title = models.CharField(max_length=255)
+    author = models.CharField(max_length=255)
+    self_rating = models.DecimalField(max_digits=3, decimal_places=2, blank=True, null=True)
+    genre = models.CharField(max_length=255)
+    description = models.TextField()
+    cover_image = models.ImageField(upload_to='book_covers/', blank=True, null=True)
+    user_email = models.EmailField()
+    user_name = models.CharField(max_length=255) 
 
     def __str__(self):
-        return self.name
-    
+        return f"{self.title} {self.book_id}" 

@@ -17,9 +17,6 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 
 
-
-
-# SignUp API
 class SignUpAPIView(CreateAPIView):
     serializer_class = UserSerializer
 
@@ -37,7 +34,6 @@ class SignUpAPIView(CreateAPIView):
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-# Login API
 
 class LoginAPIView(CreateAPIView):
     serializer_class = LoginSerializer
@@ -74,7 +70,6 @@ class LoginAPIView(CreateAPIView):
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-# Logout API
 class LogoutAPIView(CreateAPIView):
     serializer_class = LogoutSerializer
 
@@ -95,7 +90,6 @@ class LogoutAPIView(CreateAPIView):
             return Response({'message': 'Logout successful'}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# SignUp View
 def LoginGUIView(request,user=None):
     if request.user.is_authenticated:
         messages.info(request, 'LogOut first')

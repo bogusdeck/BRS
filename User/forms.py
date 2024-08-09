@@ -1,6 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from .models import CustomUser, Category
+from .models import CustomUser, Books
 from django.contrib.auth.hashers import make_password, check_password
 
 class UserLoginForm(forms.Form):
@@ -25,5 +25,46 @@ class UserSignupForm(forms.Form):
     def clean_password(self):
         password = self.cleaned_data.get('password')
         return make_password(password)
+        
+GENRE_CHOICES = [
+    ("Fiction", "Fiction"),
+    ("Non-Fiction", "Non-Fiction"),
+    ("Science Fiction", "Science Fiction"),
+    ("Fantasy", "Fantasy"),
+    ("Mystery", "Mystery"),
+    ("Thriller", "Thriller"),
+    ("Romance", "Romance"),
+    ("Historical", "Historical"),
+    ("Biography", "Biography"),
+    ("Self-Help", "Self-Help"),
+    ("Young Adult", "Young Adult"),
+    ("Children's", "Children's"),
+    ("Horror", "Horror"),
+    ("Classic", "Classic"),
+    ("Poetry", "Poetry"),
+]
 
-# class addBookForm(forms.Form):
+class BookForm(forms.Form):
+    title = forms.CharField(
+        max_length=200,
+        widget=forms.TextInput(attrs={'placeholder': 'Book Title'})
+    )
+    author = forms.CharField(
+        max_length=100,
+        widget=forms.TextInput(attrs={'placeholder': 'Author'})
+    )
+    self_rating = forms.FloatField(
+        min_value=0,
+        max_value=5,
+        widget=forms.NumberInput(attrs={'step': 0.1, 'placeholder': 'Rating (0-5)'})
+    )
+    genre = forms.ChoiceField(
+        choices=GENRE_CHOICES,
+        widget=forms.Select(attrs={'placeholder': 'Genre'})
+    )
+    description = forms.CharField(
+        widget=forms.Textarea(attrs={'rows': 4, 'placeholder': 'Description'})
+    )
+    cover_image = forms.ImageField(
+        widget=forms.ClearableFileInput(attrs={'multiple': False})
+    )

@@ -1,4 +1,8 @@
-{% extends "base.html" %} {% load static %} {% block title %}Home{% endblock %}
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
 {% block content %}
 <div>
   <section class="mb-12">
@@ -11,35 +15,35 @@
         Find the book<br />that matches your preferences
       </div>
       <form method="get" action="{% url 'showcase' %}" class="">
-      <div
-        class="flex items-center max-w-lg mx-5 sm:mx-3 md:mx-0 bg-white rounded-full shadow-lg"
-      >
-        <input
-          type="search" name="query"
-          class="w-full px-4 py-2 text-gray-800 rounded-l-full focus:outline-none"
-          placeholder="Search for books..."
-        />
-        <button
-          type="submit"
-          class="bg-[#01cccd] text-white rounded-r-full w-12 h-12 flex items-center justify-center hover:bg-teal-700"
+        <div
+          class="flex items-center max-w-lg mx-5 sm:mx-3 md:mx-0 bg-white rounded-full shadow-lg"
         >
-          <svg
-            class="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
+          <input
+            type="search" name="query"
+            class="w-full px-4 py-2 text-gray-800 rounded-l-full focus:outline-none"
+            placeholder="Search for books..."
+          />
+          <button
+            type="submit"
+            class="bg-[#01cccd] text-white rounded-r-full w-12 h-12 flex items-center justify-center hover:bg-teal-700"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            ></path>
-          </svg>
-        </button>
-        </form
-      </div>
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </form>
     </div>
   </section>
 
@@ -64,13 +68,12 @@
           <p class="text-gray-600 text-xs mt-2 truncate">
             {{ book.volumeInfo.authors|join:", " }}
           </p>
-          <br />
+        <a href="{{ book.volumeInfo.previewLink }}" target="_blank" class="text-blue-500 hover:underline text-sm">Preview</a>
         </div>
         <div
           class="absolute bottom-0 right-0 bg-teal-600 text-white text-xs font-bold px-2 py-1 rounded-tl-lg"
         >
-          {% if book.volumeInfo.averageRating %} ★ {{
-          book.volumeInfo.averageRating }} {% else %} ★ ? {% endif %}
+          {% if book.volumeInfo.averageRating %} ★ {{ book.volumeInfo.averageRating }} {% else %} ★ ? {% endif %}
         </div>
       </div>
       {% endfor %}
@@ -103,30 +106,26 @@
         <p class="text-gray-600 text-xs mt-2 truncate">
           {{ book.volumeInfo.authors|join:", " }}
         </p>
-        <br />
+        <a href="{{ book.volumeInfo.previewLink }}" target="_blank" class="text-blue-500 hover:underline text-sm">Preview</a>
       </div>
       <div
         class="absolute bottom-0 right-0 bg-teal-600 text-white text-xs font-bold px-2 py-1 rounded-tl-lg"
       >
-        {% if book.volumeInfo.averageRating %} ★ {{
-        book.volumeInfo.averageRating }} {% else %} ★ ? {% endif %}
+        {% if book.volumeInfo.averageRating %} ★ {{ book.volumeInfo.averageRating }} {% else %} ★ ? {% endif %}
       </div>
     </div>
     {% endfor %}
+
   </div>
 
-  <h2
-    class="text-3xl font-bold text-teal-600 mb-6 text-center flex items-center"
-  >
-    <span class="flex-grow text-center">Recommended for You</span>
+  <h2 class="text-3xl font-bold text-teal-600 mb-6 text-center">
+    Recommended for You
   </h2>
   <div class="flex flex-col items-center justify-center text-center mb-6">
-    <p
-      class="text-lg font-semibold text-gray-300 mb-2 flex items-center justify-center"
-    >
+    <p class="text-lg font-semibold text-gray-300 mb-2 flex items-center justify-center">
       Your Preferences:
-      <a href="{% url 'preference' %}"
-        ><img
+      <a href="{% url 'preference' %}">
+        <img
           src="{% static 'edit.png' %}"
           alt="Edit Preferences"
           class="w-6 h-6 ml-2 cursor-pointer hover:opacity-75"
@@ -158,13 +157,13 @@
         <p class="text-gray-600 text-xs mt-2 truncate">
           {{ book.volumeInfo.authors|join:", " }}
         </p>
-        <br />
+        <a href="{{ book.volumeInfo.previewLink }}" target="_blank" class="text-blue-500 hover:underline text-sm">Preview</a>
+
       </div>
       <div
         class="absolute bottom-0 right-0 bg-teal-600 text-white text-xs font-bold px-2 py-1 rounded-tl-lg"
       >
-        {% if book.volumeInfo.averageRating %} ★
-        {{book.volumeInfo.averageRating}} {% else %} ★ ? {% endif %}
+        {% if book.volumeInfo.averageRating %} ★ {{ book.volumeInfo.averageRating }} {% else %} ★ ? {% endif %}
       </div>
     </div>
     {% endfor %}
@@ -177,7 +176,9 @@
     <a
       href="{% url 'preference' %}"
       class="flex text-black bg-white px-2 py-1 rounded-xl"
-      >Edit<img
+    >
+      Edit
+      <img
         src="{% static 'edit.png' %}"
         alt="Edit Preferences"
         class="w-6 h-6 ml-2 cursor-pointer hover:opacity-75"
@@ -185,41 +186,70 @@
     </a>
   </div>
   {% endif %}
+  <section class="bg-gradient-to-r from-teal-400 via-blue-500 to-purple-600 text-white text-center py-8 mb-12  shadow-lg">
+    <div class="container mx-auto">
+      <h2 class="text-2xl font-bold mb-4">Recommend a Book to All Bibliophiles!</h2>
+      <p class="text-lg mb-4">Share your favorite books with the community and inspire others to read.</p>
+      <a href="{% url 'addBook' %}" class="bg-[#01cccd] text-white px-6 py-3 rounded-full text-lg font-semibold hover:bg-teal-700 transition duration-300">
+        Recommend Book
+      </a>
+    </div>
+  </section>
+  
+  <div id="bookModal" class="fixed inset-0 z-50 hidden flex justify-center items-center bg-black bg-opacity-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg flex w-full max-w-4xl">
+      <div id="modalImage" class="w-1/3">
+        <img id="modalImageSrc" src="" alt="Book Cover" class="w-full h-auto object-cover">
+      </div>
+      <div class="w-2/3 pl-4">
+        <h3 id="modalTitle" class="text-2xl font-bold mb-2">Book Title</h3>
+        <p id="modalAuthor" class="text-xl font-semibold mb-2">Book Author</p>
+        <p id="modalDescription" class="text-gray-700 mb-4">Book Description</p>
+        <p id="modalRating" class="text-lg font-semibold mb-2">Rating: <span id="modalRatingValue">★ ?</span></p>
+        <p id="modalAddedBy" class="text-sm text-gray-600">Added by: <span id="modalUserName">User Name</span></p>
+        <p id="modalUserEmail" class="text-sm text-gray-600">User Email: <span id="modalUserEmail">User Email</span></p>
+        <button id="modalClose" class="mt-4 px-4 py-2 bg-[#01cccd] text-white rounded-lg hover:bg-teal-700">Close</button>
+      </div>
+    </div>
+  </div>
+  
+
 
   <h2 class="text-3xl font-bold text-teal-600 mb-6 text-center">
     Recommended by Other Users
   </h2>
+
   <div
     class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-12 mx-5"
   >
-    {% for book in other_user_recommendations %}
+    {% for book in user_added_books %}
     <div
       class="book bg-white shadow-md rounded-lg overflow-hidden relative transform transition duration-300 hover:shadow-lg hover:scale-105"
-    >
+      onclick="openModal('{{ book.cover_image.url }}', '{{ book.title }}', '{{ book.author }}', '{{ book.description|escapejs }}', '{{ book.self_rating }}', '{{ book.user_name }}', '{{ book.user_email }}')"
+      >
       <img
         class="w-full h-52 object-contain"
-        src="{{ book.volumeInfo.imageLinks.thumbnail|default:'/static/default_for_cover.jpg' }}"
-        alt="{{ book.volumeInfo.title }}"
+        src="{{ book.cover_image.url|default:'/static/default_for_cover.jpg' }}"
+        alt="{{ book.title }}"
       />
       <div class="flex-grow p-4">
         <h3 class="text-base font-semibold text-gray-800 truncate">
-          {{ book.volumeInfo.title }}
+          {{ book.title }}
         </h3>
         <p class="text-gray-600 text-xs mt-2 truncate">
-          {{ book.volumeInfo.authors|join:", " }}
+          {{ book.author }}
         </p>
-        <br />
       </div>
       <div
         class="absolute bottom-0 right-0 bg-teal-600 text-white text-xs font-bold px-2 py-1 rounded-tl-lg"
       >
-        {% if book.volumeInfo.averageRating %} ★ {{
-        book.volumeInfo.averageRating }} {% else %} ★ ? {% endif %}
+        {% if book.self_rating %} ★ {{ book.self_rating }} {% else %} ★ ? {% endif %}
       </div>
     </div>
     {% endfor %}
   </div>
 
+  {% block script %}
   <script>
     var swiper = new Swiper(".swiper-container", {
       slidesPerView: 1,
@@ -248,6 +278,29 @@
         },
       },
     });
+    function openModal(imageUrl, title, author, description, rating, userName, userEmail) {
+      document.getElementById('modalImageSrc').src = imageUrl || '/static/default_for_cover.jpg';
+      document.getElementById('modalTitle').innerText = title;
+      document.getElementById('modalAuthor').innerText = author;
+      document.getElementById('modalDescription').innerText = description;
+      document.getElementById('modalRating').innerText = `Rating: ${rating || '?'}`;
+      document.getElementById('modalUserName').textContent = userName || 'Unknown';
+      document.getElementById('modalUserEmail').textContent = userEmail || 'Not provided';
+      document.getElementById('bookModal').classList.remove('hidden');
+    }
+    
+  
+    document.getElementById('modalClose').addEventListener('click', function() {
+      document.getElementById('bookModal').classList.add('hidden');
+    });
+  
+    window.addEventListener('click', function(event) {
+      if (event.target === document.getElementById('bookModal')) {
+        document.getElementById('bookModal').classList.add('hidden');
+      }
+    });
+  
   </script>
+  {% endblock script %}
 </div>
 {% endblock %}

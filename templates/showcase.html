@@ -36,7 +36,6 @@
             <div class="mb-4">
                 <label for="rating" class="block mb-2">Minimum Rating</label>
                 <select id="rating" name="rating" class="w-full bg-gray-700 text-white py-2 px-3 rounded-lg">
-                    <!-- Options omitted for brevity -->
                     <option value="">Any</option>
                     <option value="5" {% if selected_rating == "5" %}selected{% endif %}>5★</option>
                     <option value="4" {% if selected_rating == "4" %}selected{% endif %}>4★ & above</option>
@@ -49,7 +48,6 @@
             <div class="mb-4">
                 <label for="sort" class="block mb-2">Sort</label>
                 <select id="sort" name="sort" class="w-full bg-gray-700 text-white py-2 px-3 rounded-lg">
-                    <!-- Options omitted for brevity -->
                     <option value="relevance" {% if selected_sort == "relevance" %}selected{% endif %}>Relevance</option>
                     <option value="title_asc" {% if selected_sort == "title_asc" %}selected{% endif %}>Title (Ascending)</option>
                     <option value="title_desc" {% if selected_sort == "title_desc" %}selected{% endif %}>Title (Descending)</option>
@@ -87,7 +85,6 @@
                 </div>
             {% endfor %}
         </div>
-        <!-- Pagination controls -->
         <div class="flex justify-center mt-6">
             <div class="flex gap-2">
                 {% if books.has_previous %}

@@ -1,13 +1,40 @@
-{% extends "base.html" %}
-{% block title %}Home{% endblock %}
-{% if user.is_authenticated %}
-{% block name%} <span class="test-white"> {{user.fname}} {{user.lname}} </span> {%endblock name%}
-{% endif %}
-
+{% extends 'base.html' %}
+{% block title %}Add Book{% endblock %}
 {% block content %}
-
-<h1 class="text-white min-h-screen text-center flex items-center justify-center">addBook</h1>
-
-
-
+{% load widget_tweaks %}
+<div class="flex flex-col items-center justify-center min-h-screen bg-black py-6 mt-10">
+  <h2 class="text-4xl text-white bg-[#01cccd] p-4 rounded-t-lg shadow-md w-full max-w-md text-center font-bold">Add a New Book</h2>
+  <form method="post" enctype="multipart/form-data" class="flex flex-col space-y-4 bg-white px-6 py-3 rounded-b-lg shadow-lg w-full max-w-md">
+    {% csrf_token %}
+    
+    <div class="flex flex-col space-y-4">
+      <div class="flex flex-col">
+        <label for="{{ form.title.id_for_label }}" class="text-gray-700 font-medium">Title</label>
+        {{ form.title|add_class:"border border-black rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#01cccd] placeholder-gray-400" }}
+      </div>
+      <div class="flex flex-col">
+        <label for="{{ form.author.id_for_label }}" class="text-gray-700 font-medium">Author</label>
+        {{ form.author|add_class:"border border-black rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#01cccd] placeholder-gray-400" }}
+      </div>
+      <div class="flex flex-col">
+        <label for="{{ form.self_rating.id_for_label }}" class="text-gray-700 font-medium">Self Rating</label>
+        {{ form.self_rating|add_class:"border border-black rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#01cccd] placeholder-gray-400" }}
+      </div>
+      <div class="flex flex-col">
+        <label for="{{ form.genre.id_for_label }}" class="text-gray-700 font-medium">Genre</label>
+        {{ form.genre|add_class:"border border-black rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#01cccd] placeholder-gray-400" }}
+      </div>
+      <div class="flex flex-col">
+        <label for="{{ form.description.id_for_label }}" class="text-gray-700 font-medium">Description</label>
+        {{ form.description|add_class:"border border-black rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#01cccd] placeholder-gray-400" }}
+      </div>
+      <div class="flex flex-col">
+        <label for="{{ form.cover_image.id_for_label }}" class="text-gray-700 font-medium">Cover Image</label>
+        {{ form.cover_image|add_class:"border border-black rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#01cccd] placeholder-gray-400" }}
+      </div>
+    </div>
+    
+    <button type="submit" class="bg-[#01cccd] hover:bg-[#00b8b8] text-white p-2 rounded-lg">Add Book</button>
+  </form>
+</div>
 {% endblock %}
