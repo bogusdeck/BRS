@@ -1,1 +1,1 @@
-web: gunicorn BRS.wsgi
+web: gunicorn BRS.wsgi:application
