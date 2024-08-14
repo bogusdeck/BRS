@@ -42,8 +42,8 @@ The Book Recommendation System (BRS) is a Django-based web application designed 
 1. **Clone the repository:**
 
     ```bash
-    git clone <repository-url>
-    cd <project-directory>
+    git clone https://github.com/bogusdeck/BRS.git
+    cd BRS
     ```
 
 2. **Create a virtual environment:**
